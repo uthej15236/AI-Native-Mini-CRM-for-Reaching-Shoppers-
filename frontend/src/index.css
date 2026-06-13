@@ -1,0 +1,188 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+  --bg-main: #071218;
+  --bg-muted: #0b1620;
+  --panel: #0d1a24;
+  --panel-soft: #12202c;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --text-main: #f3f7f9;
+  --text-muted: #97aab7;
+  --primary: #39cdb9;
+  --primary-soft: #7af0de;
+  --primary-strong: #18a38f;
+  --danger: #f46c5f;
+  --warning: #f7b45b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: "Manrope", sans-serif;
+  color: var(--text-main);
+  background:
+    radial-gradient(circle at 15% 0%, rgba(57, 205, 185, 0.18), transparent 28%),
+    radial-gradient(circle at 85% 10%, rgba(247, 180, 91, 0.16), transparent 25%),
+    radial-gradient(circle at 50% 100%, rgba(24, 163, 143, 0.12), transparent 30%),
+    linear-gradient(180deg, #071218 0%, #09141d 45%, #061017 100%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.35), transparent 90%);
+  opacity: 0.42;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-family: "Space Grotesk", "Manrope", sans-serif;
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(57, 205, 185, 0.28);
+  color: #fff;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(57, 205, 185, 0.22);
+  }
+
+  50% {
+    box-shadow: 0 0 0 14px rgba(57, 205, 185, 0);
+  }
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(0, -8px, 0);
+  }
+}
+
+@keyframes shine {
+  from {
+    background-position: 0% 50%;
+  }
+
+  to {
+    background-position: 200% 50%;
+  }
+}
+
+.glass-card {
+  animation: fade-up 0.5s ease-out both;
+  background: linear-gradient(180deg, rgba(13, 26, 36, 0.92), rgba(10, 20, 28, 0.9));
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(1, 6, 10, 0.32);
+  backdrop-filter: blur(18px);
+}
+
+.glass-card:hover {
+  border-color: rgba(57, 205, 185, 0.18);
+}
+
+.drift {
+  animation: drift 7s ease-in-out infinite;
+}
+
+.pulse-soft {
+  animation: pulse-soft 2.8s ease-in-out infinite;
+}
+
+.shine-text {
+  background: linear-gradient(90deg, var(--text-main), var(--primary-soft), var(--text-main));
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine 6s linear infinite;
+}
+
+.grid-fade > * {
+  animation: fade-up 0.45s ease-out both;
+}
+
+.grid-fade > *:nth-child(2) {
+  animation-delay: 60ms;
+}
+
+.grid-fade > *:nth-child(3) {
+  animation-delay: 120ms;
+}
+
+.grid-fade > *:nth-child(4) {
+  animation-delay: 180ms;
+}
+
+.grid-fade > *:nth-child(5) {
+  animation-delay: 240ms;
+}
+
+.grid-fade > *:nth-child(6) {
+  animation-delay: 300ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

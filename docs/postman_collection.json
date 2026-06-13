@@ -1,0 +1,197 @@
+{
+  "info": {
+    "_postman_id": "b7c6d6c0-8e96-4b0f-9e3d-9b1e3f0d2d14",
+    "name": "Xeno Copilot API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "codex"
+  },
+  "item": [
+    {
+      "name": "Backend Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        }
+      }
+    },
+    {
+      "name": "Seed Demo Data",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/demo/seed",
+          "host": ["{{baseUrl}}"],
+          "path": ["demo", "seed"]
+        }
+      }
+    },
+    {
+      "name": "Plan Campaign",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"objective\": \"Increase repeat purchases from customers who bought in the last 90 days but have not returned in 30 days.\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/copilot/plan",
+          "host": ["{{baseUrl}}"],
+          "path": ["copilot", "plan"]
+        }
+      }
+    },
+    {
+      "name": "Customers",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/customers",
+          "host": ["{{baseUrl}}"],
+          "path": ["customers"]
+        }
+      }
+    },
+    {
+      "name": "Create Customer",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Ananya Rao\",\n  \"email\": \"ananya.rao@northstar.in\",\n  \"phone\": \"+91 98765 12001\",\n  \"preferredChannel\": \"WhatsApp\",\n  \"totalSpend\": 9200,\n  \"lastOrderDate\": \"2026-06-13\",\n  \"city\": \"Bengaluru\",\n  \"loyaltyTier\": \"Platinum\",\n  \"tags\": [\"vip\", \"mobile-first\"]\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/customers",
+          "host": ["{{baseUrl}}"],
+          "path": ["customers"]
+        }
+      }
+    },
+    {
+      "name": "Update Customer",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"city\": \"Mumbai\",\n  \"totalSpend\": 9800,\n  \"tags\": [\"vip\", \"updated\"]\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/customers/{{customerId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["customers", "{{customerId}}"]
+        }
+      }
+    },
+    {
+      "name": "Delete Customer",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/customers/{{customerId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["customers", "{{customerId}}"]
+        }
+      }
+    },
+    {
+      "name": "Campaigns",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/campaigns",
+          "host": ["{{baseUrl}}"],
+          "path": ["campaigns"]
+        }
+      }
+    },
+    {
+      "name": "Dashboard Overview",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/dashboard/overview",
+          "host": ["{{baseUrl}}"],
+          "path": ["dashboard", "overview"]
+        }
+      }
+    },
+    {
+      "name": "Launch Campaign",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"objective\": \"Increase repeat purchases from customers who bought in the last 90 days but have not returned in 30 days.\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/campaigns/launch",
+          "host": ["{{baseUrl}}"],
+          "path": ["campaigns", "launch"]
+        }
+      }
+    },
+    {
+      "name": "Channel Service Simulations",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"campaignId\": \"CAMP-DEMO\",\n  \"objective\": \"Demo launch\",\n  \"recommendedChannel\": \"WhatsApp\",\n  \"audience\": [],\n  \"messages\": {\n    \"whatsapp\": \"Hello\",\n    \"sms\": \"Hello\",\n    \"email\": \"Hello\"\n  },\n  \"idempotencyKey\": \"demo-key\"\n}"
+        },
+        "url": {
+          "raw": "{{channelUrl}}/simulations",
+          "host": ["{{channelUrl}}"],
+          "path": ["simulations"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000/api"
+    },
+    {
+      "key": "channelUrl",
+      "value": "http://localhost:5100/api"
+    }
+  ]
+}
