@@ -12,11 +12,21 @@ import demoRoutes from "./routes/demo.routes";
 import webhookRoutes from "./routes/webhook.routes";
 
 const app = express();
+const allowedOrigins = new Set(env.clientUrls);
+const isLocalOrigin = (origin: string) => /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(origin);
+const isNetlifyOrigin = (origin: string) => /^https:\/\/[a-z0-9-]+\.netlify\.app$/i.test(origin);
 
 app.use(
   cors({
-    origin: env.clientUrls,
-    credentials: true,
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.has(origin) || isLocalOrigin(origin) || isNetlifyOrigin(origin)) {
+        callback(null, true);
+        return;
+      }
+
+      callback(new Error(`CORS blocked origin: ${origin}`));
+    },
+    credentials: false,
   })
 );
 app.use(helmet());
@@ -41,4 +51,3 @@ app.use(notFoundHandler);
 app.use(errorHandler);
 
 export default app;
-
