@@ -15,11 +15,12 @@ const app = express();
 const allowedOrigins = new Set(env.clientUrls);
 const isLocalOrigin = (origin: string) => /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(origin);
 const isNetlifyOrigin = (origin: string) => /^https:\/\/[a-z0-9-]+\.netlify\.app$/i.test(origin);
+const isVercelOrigin = (origin: string) => /^https:\/\/[a-z0-9-]+\.vercel\.app$/i.test(origin);
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.has(origin) || isLocalOrigin(origin) || isNetlifyOrigin(origin)) {
+      if (!origin || allowedOrigins.has(origin) || isLocalOrigin(origin) || isNetlifyOrigin(origin) || isVercelOrigin(origin)) {
         callback(null, true);
         return;
       }

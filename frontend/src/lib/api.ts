@@ -13,20 +13,7 @@ const resolveApiBaseUrl = (): string => {
     return "http://localhost:5000/api";
   }
 
-  if (typeof window !== "undefined") {
-    const { hostname, protocol } = window.location;
-
-    if (hostname.endsWith(".netlify.app")) {
-      const slug = hostname.replace(/\.netlify\.app$/i, "");
-      return `${protocol}//${slug}.onrender.com/api`;
-    }
-
-    if (hostname === "localhost" || hostname === "127.0.0.1") {
-      return `${protocol}//${hostname}:5000/api`;
-    }
-  }
-
-  return "http://localhost:5000/api";
+  return "/api";
 };
 
 export const api = axios.create({

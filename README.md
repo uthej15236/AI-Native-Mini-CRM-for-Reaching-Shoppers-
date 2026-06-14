@@ -46,9 +46,10 @@ xeno-pulse-crm/
   channel-service/
   docs/
   frontend/
+    api/
   docker-compose.yml
   .env.example
-  netlify.toml
+  frontend/vercel.json
 ```
 
 ## Tech Stack
@@ -56,7 +57,7 @@ xeno-pulse-crm/
 - Frontend: React, TypeScript, Vite, Tailwind CSS
 - Backend: Node.js, Express, TypeScript, MongoDB, Mongoose
 - Channel service: Node.js, Express, TypeScript
-- Deployment: Netlify for frontend, separate Node host for backend and channel service
+- Deployment: Vercel for frontend, separate Node host for backend and channel service
 
 ## Prerequisites
 
@@ -263,24 +264,27 @@ Docker starts:
 - Backend on port `5000`
 - Frontend on port `5173`
 
-## Step 8. Netlify Deployment
+## Step 8. Vercel Deployment
 
-Netlify only hosts the frontend, so the backend and channel service must be deployed separately.
+Vercel only hosts the frontend, so the backend and channel service must be deployed separately.
 
-### Frontend on Netlify
+The frontend now calls `/api` in production. Vercel serves the React app and proxies `/api/*` requests to the Render backend through the Vercel function in `frontend/api`.
+
+### Frontend on Vercel
 
 1. Push the repo to GitHub.
-2. Create a new site in Netlify from the GitHub repo.
-3. Set the base directory to `frontend`.
+2. Create a new project in Vercel from the GitHub repo.
+3. Set the root directory to `frontend`.
 4. Set the build command to `npm run build`.
-5. Set the publish directory to `dist`.
-6. Add this environment variable in Netlify:
+5. Set the output directory to `dist`.
+6. Add this environment variable in Vercel:
 
 ```env
-VITE_API_BASE_URL=https://<your-backend-domain>/api
+BACKEND_API_URL=https://<your-backend-domain>/api
 ```
 
-7. Keep the root `netlify.toml` in the repository so SPA routing works.
+7. Deploy the project.
+8. Keep `frontend/vercel.json` in the repository so SPA routing works.
 
 ### Backend Deployment
 
@@ -292,7 +296,7 @@ Required backend env vars:
 PORT=5000
 NODE_ENV=production
 MONGO_URI=<your-atlas-or-hosted-mongo-uri>
-CLIENT_URLS=https://<your-netlify-domain>
+CLIENT_URLS=https://<your-vercel-domain>
 PUBLIC_API_URL=https://<your-backend-domain>/api
 CHANNEL_SERVICE_URL=https://<your-channel-service-domain>/api/simulations
 WEBHOOK_SECRET=xeno-demo-secret
@@ -318,6 +322,7 @@ Important:
 
 - `PUBLIC_API_URL` must point to the backend domain so the channel service can call webhooks back into the CRM.
 - `CHANNEL_SERVICE_URL` must point to the deployed channel service domain so the backend can launch simulations.
+- The browser should talk to the Vercel frontend only; Vercel forwards `/api` calls to the backend.
 
 ## Step 9. Git Commands
 
