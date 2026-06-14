@@ -286,6 +286,7 @@ BACKEND_API_URL=https://<your-backend-domain>/api
 7. Deploy the project.
 8. Keep `frontend/vercel.json` in the repository so SPA routing works.
 9. If you paste the plain Render domain instead of `/api`, the proxy will add `/api` automatically.
+10. Do not set `VITE_API_BASE_URL` in Vercel. That variable is for local development only.
 
 ### Backend Deployment
 

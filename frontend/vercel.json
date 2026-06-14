@@ -2,7 +2,11 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     {
-      "source": "/:path((?!api/).*)",
+      "source": "/api/(.*)",
+      "destination": "https://ai-native-mini-crm-for-reaching-shoppers-rma0.onrender.com/api/$1"
+    },
+    {
+      "source": "/(?path((?!api/).*))",
       "destination": "/index.html"
     }
   ]

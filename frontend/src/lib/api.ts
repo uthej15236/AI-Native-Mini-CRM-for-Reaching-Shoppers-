@@ -4,12 +4,12 @@ import { getStoredToken } from "./storage";
 const trimTrailingSlash = (value: string): string => value.replace(/\/+$/, "");
 
 const resolveApiBaseUrl = (): string => {
-  const explicitBaseUrl = import.meta.env.VITE_API_BASE_URL?.trim();
-  if (explicitBaseUrl) {
-    return trimTrailingSlash(explicitBaseUrl);
-  }
-
   if (import.meta.env.DEV) {
+    const explicitBaseUrl = import.meta.env.VITE_API_BASE_URL?.trim();
+    if (explicitBaseUrl) {
+      return trimTrailingSlash(explicitBaseUrl);
+    }
+
     return "http://localhost:5000/api";
   }
 
