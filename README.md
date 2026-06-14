@@ -285,6 +285,7 @@ BACKEND_API_URL=https://<your-backend-domain>/api
 
 7. Deploy the project.
 8. Keep `frontend/vercel.json` in the repository so SPA routing works.
+9. If you paste the plain Render domain instead of `/api`, the proxy will add `/api` automatically.
 
 ### Backend Deployment
 
@@ -323,6 +324,7 @@ Important:
 - `PUBLIC_API_URL` must point to the backend domain so the channel service can call webhooks back into the CRM.
 - `CHANNEL_SERVICE_URL` must point to the deployed channel service domain so the backend can launch simulations.
 - The browser should talk to the Vercel frontend only; Vercel forwards `/api` calls to the backend.
+- If the dashboard shows `404`, the first thing to check is the `BACKEND_API_URL` value in Vercel and the deployed Render backend URL.
 
 ## Step 9. Git Commands
 

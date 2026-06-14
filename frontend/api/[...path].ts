@@ -18,7 +18,8 @@ const getBackendBaseUrl = () => {
     throw new Error("Missing BACKEND_API_URL");
   }
 
-  return value.replace(/\/+$/, "");
+  const normalized = value.replace(/\/+$/, "");
+  return normalized.endsWith("/api") ? normalized : `${normalized}/api`;
 };
 
 const readRequestBody = async (req) => {
@@ -70,7 +71,7 @@ export default async function handler(req, res) {
   try {
     const backendBaseUrl = getBackendBaseUrl();
     const requestUrl = new URL(req.url ?? "/api", "http://localhost");
-    const upstreamPath = requestUrl.pathname.replace(/^\/api\/?/, "");
+    const upstreamPath = requestUrl.pathname.replace(/^\/api\/?/, "").replace(/^\/+/, "");
     const targetUrl = new URL(upstreamPath, `${backendBaseUrl}/`);
     targetUrl.search = requestUrl.search;
 
